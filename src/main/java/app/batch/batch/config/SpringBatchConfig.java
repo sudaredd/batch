@@ -41,7 +41,7 @@ public class SpringBatchConfig {
         FlatFileItemReader<Employee> reader = new FlatFileItemReader<Employee>();
         reader.setResource(new ClassPathResource("employee.csv"));
 
-        reader.setLineMapper(new DefaultLineMapper<Employee>() {{
+        reader.setLineMapper(new DefaultLineMapper<>() {{
             setLineTokenizer(new DelimitedLineTokenizer() {{
                 setNames(new String[] { "first_name", "last_name","company_name","address","city","county","state","zip" });
             }});
@@ -59,7 +59,7 @@ public class SpringBatchConfig {
 
     @Bean
     public JdbcBatchItemWriter<EmployeeDTO> writer() {
-        JdbcBatchItemWriter<EmployeeDTO> writer = new JdbcBatchItemWriter<EmployeeDTO>();
+        JdbcBatchItemWriter<EmployeeDTO> writer = new JdbcBatchItemWriter<>();
         writer.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>());
         writer.setSql("INSERT INTO employee (first_name,last_name,company_name,address,city,county,state,zip) " +
             "VALUES (:firstName, :lastName,:companyName,:address,:city,:county,:state,:zip)");
