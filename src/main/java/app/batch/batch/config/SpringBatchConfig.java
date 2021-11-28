@@ -1,6 +1,7 @@
 package app.batch.batch.config;
 
 import app.batch.batch.listner.JobListener;
+import app.batch.batch.listner.StepListener;
 import app.batch.batch.model.Employee;
 import app.batch.batch.model.EmployeeDTO;
 import app.batch.batch.processor.EmployeeProcessor;
@@ -38,7 +39,7 @@ public class SpringBatchConfig {
 
     @Bean
     public FlatFileItemReader<Employee> reader() {
-        FlatFileItemReader<Employee> reader = new FlatFileItemReader<Employee>();
+        FlatFileItemReader<Employee> reader = new FlatFileItemReader<>();
         reader.setResource(new ClassPathResource("employee.csv"));
 
         reader.setLineMapper(new DefaultLineMapper<>() {{
@@ -67,7 +68,7 @@ public class SpringBatchConfig {
         return writer;
     }
 
-    @Bean
+    @Bean(name = "importUserJob")
     public Job importUserJob(JobListener listener) {
         return jobBuilderFactory.get("importUserJob")
             .incrementer(new RunIdIncrementer())
@@ -84,6 +85,8 @@ public class SpringBatchConfig {
             .reader(reader())
             .processor(processor())
             .writer(writer())
+            .listener(new StepListener())
+            .allowStartIfComplete(true)
             .taskExecutor(taskExecutor())
             .build();
     }

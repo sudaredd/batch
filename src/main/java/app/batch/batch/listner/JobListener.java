@@ -36,4 +36,8 @@ public class JobListener extends JobExecutionListenerSupport {
         }
     }
 
+    public void beforeJob(JobExecution jobExecution) {
+        log.info("before Job run::"+jobExecution.getStatus().toString());
+    }
+
 }
