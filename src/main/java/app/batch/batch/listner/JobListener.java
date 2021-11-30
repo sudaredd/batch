@@ -32,7 +32,7 @@ public class JobListener extends JobExecutionListenerSupport {
                         rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8));
                 }
             );
-            results.forEach(emp->log.info(emp.toString()));
+//            results.forEach(emp->log.info(emp.toString()));
         }
     }
 
