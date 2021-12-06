@@ -1,7 +1,7 @@
-package app.batch.batch.async;
+package app.batch.async;
 
-import app.batch.batch.model.User;
-import app.batch.batch.service.GitHubLookupService;
+import app.batch.model.User;
+import app.batch.service.GitHubLookupService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

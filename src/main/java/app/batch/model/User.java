@@ -1,4 +1,4 @@
-package app.batch.batch.model;
+package app.batch.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;

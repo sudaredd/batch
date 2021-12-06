@@ -1,10 +1,10 @@
-package app.batch.batch.config;
+package app.batch.config;
 
-import app.batch.batch.listner.JobListener;
-import app.batch.batch.listner.StepListener;
-import app.batch.batch.model.Employee;
-import app.batch.batch.model.EmployeeDTO;
-import app.batch.batch.processor.EmployeeProcessor;
+import app.batch.listner.JobListener;
+import app.batch.listner.StepListener;
+import app.batch.model.Employee;
+import app.batch.model.EmployeeDTO;
+import app.batch.processor.EmployeeProcessor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
@@ -17,6 +17,7 @@ import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
@@ -25,7 +26,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import javax.sql.DataSource;
 
-@Configuration
+//@Configuration
 public class SpringBatchConfig {
 
     @Autowired
@@ -34,8 +35,9 @@ public class SpringBatchConfig {
     @Autowired
     public StepBuilderFactory stepBuilderFactory;
 
+    @Qualifier("dataSource")
     @Autowired
-    public DataSource dataSource;
+    public DataSource primaryDataSource;
 
     @Bean
     public FlatFileItemReader<Employee> reader() {
@@ -64,7 +66,7 @@ public class SpringBatchConfig {
         writer.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>());
         writer.setSql("INSERT INTO employee (first_name,last_name,company_name,address,city,county,state,zip) " +
             "VALUES (:firstName, :lastName,:companyName,:address,:city,:county,:state,:zip)");
-        writer.setDataSource(dataSource);
+        writer.setDataSource(primaryDataSource);
         return writer;
     }
 

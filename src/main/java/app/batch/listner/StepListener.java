@@ -1,4 +1,4 @@
-package app.batch.batch.listner;
+package app.batch.listner;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.ExitStatus;

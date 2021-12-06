@@ -1,4 +1,4 @@
-package app.batch.batch;
+package app.batch;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
