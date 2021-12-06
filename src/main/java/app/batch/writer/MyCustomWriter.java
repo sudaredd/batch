@@ -18,8 +18,8 @@ public class MyCustomWriter implements ItemWriter<Manager> {
     private ManagerRepository managerRepository;
 
     @Override
-    public void write(List<? extends Manager> list) throws Exception {
-        log.info("saving %s manager records", list.size());
+    public void write(List<? extends Manager> list) {
+        log.info("saving {} manager records", list.size());
         managerRepository.saveAll(list);
     }
 }

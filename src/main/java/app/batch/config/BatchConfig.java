@@ -44,7 +44,7 @@ public class BatchConfig {
     @Bean
     public Step createStep() {
         return stepBuilderFactory.get("MyStep")
-            .<EmployeeNew, Manager> chunk(1)
+            .<EmployeeNew, Manager> chunk(5)
             .reader(myCustomReader)
             .processor(myCustomProcessor)
             .writer(myCustomWriter)

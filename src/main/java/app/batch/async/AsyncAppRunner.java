@@ -23,7 +23,7 @@ public class AsyncAppRunner implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         long start = System.currentTimeMillis();
-
+        try {
         CompletableFuture<User> page1 = gitHubLookupService.findUser("PivotalSoftware");
         CompletableFuture<User> page2 = gitHubLookupService.findUser("CloudFoundry");
         CompletableFuture<User> page3 = gitHubLookupService.findUser("Spring-Projects");
@@ -36,16 +36,19 @@ public class AsyncAppRunner implements CommandLineRunner {
         // Wait until they are all done
         CompletableFuture.allOf(page1, page2, page3, page4, page5, page6, page7, page8).join();
 
-        // Print results, including elapsed time
-        log.info("Elapsed time: " + (System.currentTimeMillis() - start));
-        log.info("--> " + page1.get());
-        log.info("--> " + page2.get());
-        log.info("--> " + page3.get());
-        log.info("--> " + page4.get());
-        log.info("--> " + page5.get());
-        log.info("--> " + page6.get());
-        log.info("--> " + page7.get());
-        log.info("--> " + page8.get());
+            // Print results, including elapsed time
+            log.info("Elapsed time: " + (System.currentTimeMillis() - start));
+            log.info("--> " + page1.get());
+            log.info("--> " + page2.get());
+            log.info("--> " + page3.get());
+            log.info("--> " + page4.get());
+            log.info("--> " + page5.get());
+            log.info("--> " + page6.get());
+            log.info("--> " + page7.get());
+            log.info("--> " + page8.get());
+        } catch (RuntimeException ex) {
+            log.error("Error while getting user info ", ex);
+        }
 
 
     }
